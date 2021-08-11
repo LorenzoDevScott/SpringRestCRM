@@ -1,4 +1,4 @@
-package com.lorenzo;
+package com.lorenzo.serviceimplementation;
 
 import java.util.List;
 
@@ -29,5 +29,12 @@ public class TicketServiceImpl implements TicketService{
 	public List<Ticket> findByRepairType(String repairType) {
 		return ticketRepo.findByRepairType(repairType);
 	}
+
+	@Override
+	public List<Ticket> findAll() {
+		return ticketRepo.findAll();
+	}
+	
+	
 
 }
