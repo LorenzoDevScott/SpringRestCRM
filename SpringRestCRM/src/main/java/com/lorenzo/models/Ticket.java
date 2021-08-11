@@ -2,22 +2,33 @@ package com.lorenzo.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Ticket {
 	
 	@Id
-	@GeneratedValue
-	private long id;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long Id;
 	private String repairType;
 	private String description;
 	
+	public Ticket() {
+		super();
+	}
+
+	public Ticket(String repairType, String description) {
+		super();
+		this.repairType = repairType;
+		this.description = description;
+	}
+	
 	public long getId() {
-		return id;
+		return Id;
 	}
 	public void setId(long id) {
-		this.id = id;
+		this.Id = id;
 	}
 	public String getRepairType() {
 		return repairType;
