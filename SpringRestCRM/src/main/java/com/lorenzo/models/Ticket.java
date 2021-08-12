@@ -10,7 +10,7 @@ public class Ticket {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long Id;
+	private long tid;
 	private String repairType;
 	private String description;
 	
@@ -25,11 +25,9 @@ public class Ticket {
 	}
 	
 	public long getId() {
-		return Id;
+		return tid;
 	}
-	public void setId(long id) {
-		this.Id = id;
-	}
+	
 	public String getRepairType() {
 		return repairType;
 	}
