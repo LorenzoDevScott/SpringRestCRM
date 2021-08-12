@@ -1,36 +1,101 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>CRM</title>
-<link rel="stylesheet" href="css/styles.css">
-<link rel="stylesheet" href="fonts/fonts.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>CRM</title>
 </head>
 <body>
-	<div class="navbar">
-		<ul class="navbar-item">
-			<li><a  href="index.html">Home</a></li>
-			<li><a  href="ticket.html">Tickets</a></li>
-			<li><a  href="customer.html">Customers</a></li>
-			<li><a  href="partsOrder.html">Parts Orders</a></li>
-			<li><a  href="products.html">Products</a></li>
-		</ul>
-	</div>
-	<div class="container">
-		<div id="ticket">
-			<h3>Tickets</h3>
-			<div class="circle"><p id="circle"></p></div>
-		</div>
-		<div id="customer">
-			<h3>Customers</h3>
-		</div>
-		<div id="product">
-			<h3>Products</h3>
-		</div>
-		<div id="partsorder">
-			<h3>Parts Ordering</h3>
-		</div>
-	</div>
-	<script src="js/script.js"></script>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <div class="container">
+            <a href="#" class="navbar-brand">CRM</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Tickets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Parts Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Customers</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="bg-dark text-light p-5 min-100 d-flex flex-column justify-content-center">
+        <div class="container">
+            <div class="row">
+                <div class="row">
+                    <div class="col-sm-6">
+                      <div class="card" style="height: 22rem;">
+                        <div class="card-body text-dark d-flex flex-column">
+                          <h5 class="card-title">Tickets</h5>
+                          <h6 class="card-subtitle align-self-center mt-4">Tickets In Progress</h6>
+                          <p class="card-text text-center bg-dark text-light w-25 align-self-center mt-2 rounded-3" style="padding:3rem;font-size: 1.5rem;" id="ticket"></p>
+                          <a href="#" class="btn btn-primary w-25 align-self-center">Tickets</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card" style="height: 22rem;">
+                          <div class="card-body text-dark d-flex flex-column">
+                            <h5 class="card-title">Parts Orders</h5>
+                            <h6 class="card-subtitle align-self-center mt-4">Pending Parts Orders</h6>
+                            <p class="card-text text-center bg-dark text-light w-25 align-self-center mt-2 rounded-3" style="padding:3rem;font-size: 1.5rem;">0</p>
+                            <a href="#" class="btn btn-primary w-25 align-self-center">Parts Orders</a>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="row gy-2">
+                    <div class="col-sm-6">
+                      <div class="card" style="height: 22rem;">
+                        <div class="card-body text-dark d-flex flex-column">
+                          <h5 class="card-title">Products</h5>
+                          <h6 class="card-subtitle mt-1">Recent Additions</h6>
+                          <ul class="list-group list-group-flush my-auto border">
+                            <li class="list-group-item">iPhone 12</li>
+                            <li class="list-group-item">MacBook Pro 2021 M2</li>
+                            <li class="list-group-item">iPhone 13XR</li>
+                          </ul>
+                          <a href="#" class="btn btn-primary w-25 mt-auto">Go To Products</a>
+                        </div>
+                        <div class="card-footer text-muted ">
+                            Updated: 2 days ago
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="card" style="height: 22rem;">
+                        <div class="card-body text-dark">
+                          <h5 class="card-title">Customers</h5>
+                          <p class="card-text">Customers page that includes contact information, work orders, and purchases</p>
+                          <a href="#" class="btn btn-primary">Go To Customers</a>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
