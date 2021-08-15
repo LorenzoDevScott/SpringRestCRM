@@ -1,5 +1,7 @@
 package com.lorenzo.serviceimplementation;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +24,17 @@ public class PartOrderServiceImpl implements PartOrderService{
 	public PartOrder save(PartOrder partOrder) {
 		return partOrderRepo.save(partOrder);
 	}
+
+	@Override
+	public PartOrder findByPartName(String partName) {
+		return partOrderRepo.findByPartName(partName);
+	}
+
+	@Override
+	public List<PartOrder> findAll() {
+		return partOrderRepo.findAll();
+	}
+	
+	
 
 }

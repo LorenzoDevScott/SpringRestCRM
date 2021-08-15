@@ -1,5 +1,7 @@
 package com.lorenzo.serviceimplementation;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +24,21 @@ public class ProductServiceImpl implements ProductService{
 	public Product save(Product product) {
 		return productRepo.save(product);
 	}
+
+	@Override
+	public Product findByProductName(String productName) {
+		return productRepo.findByProductName(productName);
+	}
+
+	@Override
+	public List<Product> findAll() {
+		return productRepo.findAll();
+	}
+
+	
+	
+	
+	
+	
 
 }

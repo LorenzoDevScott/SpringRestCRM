@@ -1,5 +1,7 @@
 package com.lorenzo.serviceimplementation;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,4 +25,28 @@ public class CustomerServiceImpl implements CustomerService{
 		return customerRepo.save(customer);
 	}
 
+	@Override
+	public List<Customer> findAll() {
+		return customerRepo.findAll();
+	}
+
+	@Override
+	public List<Customer> findByFirstName(String firstName) {
+		return customerRepo.findByFirstName(firstName);
+	}
+
+	@Override
+	public List<Customer> findByLastName(String lastName) {
+		return customerRepo.findByLastName(lastName);
+	}
+
+	@Override
+	public Customer findByEmail(String email) {
+		return customerRepo.findByEmail(email);
+	}
+	
+	
+	
+	
+	
 }
