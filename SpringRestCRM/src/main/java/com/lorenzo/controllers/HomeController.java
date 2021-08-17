@@ -64,7 +64,7 @@ public class HomeController {
 		customerServ.save(dataCustomer);
 		return "redirect:/customers-view";
 	}
-	@RequestMapping(value = "/customers/{id}/delete", method = {RequestMethod.GET, RequestMethod.DELETE})
+	@RequestMapping(value = "/customers/{id}/remove", method = {RequestMethod.GET, RequestMethod.DELETE})
 	public String deleteCustomer(@PathVariable Long id) {
 		customerServ.deleteById(id);
 		return "redirect:/customers-view";
@@ -104,7 +104,7 @@ public class HomeController {
 		ticketServ.save(dataTicket);
 		return "redirect:/tickets-view";
 	}
-	@RequestMapping(value = "/tickets/{id}/delete", method = {RequestMethod.GET, RequestMethod.DELETE})
+	@RequestMapping(value = "/tickets/{id}/remove", method = {RequestMethod.GET, RequestMethod.DELETE})
 	public String deleteTicket(@PathVariable Long id) {
 		ticketServ.deleteById(id);
 		return "redirect:/tickets-view";
