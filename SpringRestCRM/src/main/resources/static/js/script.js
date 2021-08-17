@@ -11,5 +11,3 @@ fetch(ticketsUrl)
 )
 
 
-
-
