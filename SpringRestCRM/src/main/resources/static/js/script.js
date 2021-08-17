@@ -10,4 +10,9 @@ fetch(ticketsUrl)
     }
 )
 
+function deleteItem(){
+	let id = 
+	location.href = 'http://localhost:8080/tickets/' + id + '/remove';
+}
+
 
