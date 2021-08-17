@@ -1,6 +1,7 @@
 package com.lorenzo.serviceimplementation;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,13 +17,23 @@ public class CustomerServiceImpl implements CustomerService{
 	private CustomerRepo customerRepo;
 
 	@Override
-	public Customer findById(long id) throws Exception{
-		return customerRepo.findById(id).orElseThrow(() -> new Exception("Ticket with ID: " + id + "is not found"));
+	public Customer findById(Long id) throws Exception{
+		
+			if(customerRepo.findById(id).isPresent()) {
+				return (Customer) customerRepo.findById(id).get();
+			} else {
+				return null;
+			}
 	}
 
 	@Override
 	public Customer save(Customer customer) {
 		return customerRepo.save(customer);
+	}
+
+	@Override
+	public void deleteById(Long id) {
+		customerRepo.deleteById(id);
 	}
 
 	@Override
