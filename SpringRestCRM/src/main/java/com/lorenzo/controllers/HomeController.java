@@ -17,9 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lorenzo.models.Customer;
+import com.lorenzo.models.PartOrder;
+import com.lorenzo.models.Product;
 import com.lorenzo.models.Ticket;
 import com.lorenzo.repository.CustomerRepo;
 import com.lorenzo.serviceimplementation.CustomerServiceImpl;
+import com.lorenzo.serviceimplementation.PartOrderServiceImpl;
+import com.lorenzo.serviceimplementation.ProductServiceImpl;
 import com.lorenzo.serviceimplementation.TicketServiceImpl;
 
 @Controller
@@ -27,20 +31,52 @@ public class HomeController {
 
 	
 	// Services 
+	
 	@Autowired
 	private CustomerServiceImpl customerServ;
 	
 	@Autowired
 	private TicketServiceImpl ticketServ;
 	
+	@Autowired
+	private ProductServiceImpl productServ;
 	
-	// Controller Mappings
+	@Autowired
+	private PartOrderServiceImpl partOrderServ;
+	
+	
+											// Controller Mappings
+	
+	// Home Page
+	
+	@GetMapping("/")
+	public String home() {
+		return "index";
+	}
+	
 	
 	// Customer Mappings
+	
+	
+	// This is setting up for updating customer
+	// This needs to be for showing all customers
+	
+	/*                          Customers url will have two models attached
+	 * a new Customer() called "customer"
+	 * a list of customers called "customers"
+	 * 
+	 * the view resolver will include the list of customers and a button that will show a form to create a new customer
+	 * 
+	 * in the table "customers" attribute will be used to populate the tables
+	 * 
+	 * in the form "customer" attribute will be used to create the new customer
+	 * 
+	 * */
 	@GetMapping("/customers")
 	public String customersForm(Model model) {
 		model.addAttribute("customer", new Customer());
-		return "customerform";
+		model.addAttribute("customers", customerServ.findAll());
+		return "customers-view";
 	}
 	
 	@PostMapping("/customers")
@@ -64,6 +100,7 @@ public class HomeController {
 		customerServ.save(dataCustomer);
 		return "redirect:/customers-view";
 	}
+	
 	@RequestMapping(value = "/customers/{id}/remove", method = {RequestMethod.GET, RequestMethod.DELETE})
 	public String deleteCustomer(@PathVariable Long id) {
 		customerServ.deleteById(id);
@@ -104,6 +141,7 @@ public class HomeController {
 		ticketServ.save(dataTicket);
 		return "redirect:/tickets-view";
 	}
+	
 	@RequestMapping(value = "/tickets/{id}/remove", method = {RequestMethod.GET, RequestMethod.DELETE})
 	public String deleteTicket(@PathVariable Long id) {
 		ticketServ.deleteById(id);
@@ -115,4 +153,89 @@ public class HomeController {
 		model.addAttribute("tickets", ticketServ.findAll());
 		return "tickets-view";
 	}
+	
+	// Products Mappings
+	
+	@GetMapping("/products")
+	public String productsForm(Model model) {
+		model.addAttribute("product", new Product());
+		return "productform";
+	}
+	
+	@PostMapping("/products")
+	  public String productSubmit(@ModelAttribute Product product) {
+	    productServ.save(product);
+	    return "redirect:/products-view";
+	  }
+	
+	@GetMapping("/products/{id}")
+	public String getProduct(@PathVariable Long id, Model model) throws Exception {
+		model.addAttribute("product", productServ.findById(id));
+		return "productupdate";
+	}
+	
+	@PostMapping("/products/{id}")
+	public String updateProduct(@PathVariable Long id, @ModelAttribute Product product) throws Exception {
+		Product dataProduct = productServ.findById(id);
+		dataProduct.setProductName(product.getProductName());
+		dataProduct.setProductPrice(product.getProductPrice());
+		dataProduct.setProductQuantity((long) product.getProductQuantity());
+		productServ.save(dataProduct);
+		return "redirect:/products-view";
+	}
+	
+	@RequestMapping(value = "/products/{id}/remove", method = {RequestMethod.GET, RequestMethod.DELETE})
+	public String deleteProduct(@PathVariable Long id) {
+		productServ.deleteById(id);
+		return "redirect:/products-view";
+	}
+	
+	@GetMapping("/products-view")
+	public String viewProducts(Model model) {
+		model.addAttribute("products", productServ.findAll());
+		return "products-view";
+	}
+	
+	// PartOrder Mappings
+	
+	@GetMapping("/partorders")
+	public String partOrderForm(Model model) {
+		model.addAttribute("product", new PartOrder());
+		return "partorderform";
+	}
+	
+	@PostMapping("/partorders")
+	  public String partOrderSubmit(@ModelAttribute PartOrder partOrder) {
+	    partOrderServ.save(partOrder);
+	    return "redirect:/partorders-view";
+	  }
+	
+	@GetMapping("/partorders/{id}")
+	public String getPartOrder(@PathVariable Long id, Model model) throws Exception {
+		model.addAttribute("partorder", productServ.findById(id));
+		return "partorderupdate";
+	}
+	
+	@PostMapping("/partorders/{id}")
+	public String updatePartOrder(@PathVariable Long id, @ModelAttribute PartOrder partOrder) throws Exception {
+		PartOrder dataPartOrder = partOrderServ.findById(id);
+		dataPartOrder.setPartName(partOrder.getPartName());
+		dataPartOrder.setPartPrice(partOrder.getPartPrice());
+		dataPartOrder.setPartQuantity((long) partOrder.getPartQuantity());
+		partOrderServ.save(dataPartOrder);
+		return "redirect:/partorders-view";
+	}
+	
+	@RequestMapping(value = "/partorders/{id}/remove", method = {RequestMethod.GET, RequestMethod.DELETE})
+	public String deletePartOrder(@PathVariable Long id) {
+		partOrderServ.deleteById(id);
+		return "redirect:/partorders-view";
+	}
+	
+	@GetMapping("/partorders-view")
+	public String viewPartsOrders(Model model) {
+		model.addAttribute("partorders", partOrderServ.findAll());
+		return "partorders-view";
+	}
+	
 }
