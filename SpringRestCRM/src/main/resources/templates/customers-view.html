@@ -11,7 +11,7 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
         <div class="container">
-            <a href="#" class="navbar-brand">CRM</a>
+            <a href="/" class="navbar-brand">CRM</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
                 <span class="navbar-toggler-icon"></span>
@@ -20,23 +20,23 @@
             <div class="collapse navbar-collapse" id="navmenu">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Tickets</a>
+                        <a href="/tickets-view" class="nav-link">Tickets</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Parts Orders</a>
+                        <a href="/partorders-view" class="nav-link">Parts Orders</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Products</a>
+                        <a href="/products-view" class="nav-link">Products</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Customers</a>
+                        <a href="/customers-view" class="nav-link">Customers</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-   <section class="min-100 d-flex flex-column justify-content-center">
+   <section class="min-100 d-flex flex-column justify-content-start mt-5">
     <div class="container">
         <table class="table table-striped table-dark">
             <thead>
@@ -45,6 +45,8 @@
                 <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
                 <th scope="col">Email</th>
+                <th scope="col">Delete Customer</th>
+                <th scope="col">Update Customer</th>
               </tr>
             </thead>
             <tbody>
@@ -53,6 +55,8 @@
               	<td th:text = "${customer.firstName}"></td>
               	<td th:text = "${customer.lastName}"></td>
               	<td th:text = "${customer.email}"></td>
+              	<td><button type="button" class="btn btn-danger" th:attr="onclick=|deleteItem('customers','${customer.id}')|">Delete</button></td>
+              	<td><button type="button" class="btn btn-warning text-light">Update</button></td>
               </tr>
             </tbody>
           </table>
@@ -60,6 +64,6 @@
    </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-    <script></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

@@ -36,24 +36,26 @@
         </div>
     </nav>
 
-   <section class="min-100 d-flex flex-column justify-content-start bg-dark">
+   <section class="min-100 d-flex flex-column justify-content-start mt-5">
     <div class="container">
-        <table class="table table-striped table-dark mt-5">
+        <table class="table table-striped table-dark">
             <thead>
               <tr>
                 <th scope="col">#ID</th>
-                <th scope="col">Repair Type</th>
-                <th scope="col">Description</th>
-                <th scope="col">Delete Ticket</th>
-                <th scope="col">Update Ticket</th>
+                <th scope="col">Part Name</th>
+                <th scope="col">Part Price</th>
+                <th scope="col">Part Quantity</th>
+                <th scope="col">Delete Part Order</th>
+                <th scope="col">Update Part Order</th>
               </tr>
             </thead>
             <tbody>
-              <tr th:each = "ticket: ${tickets}">
-              	<th th:text = "${ticket.id}"></th>
-              	<td th:text = "${ticket.repairType}"></td>
-              	<td th:text = "${ticket.description}"></td>
-              	<td><button type="button" class="btn btn-danger" th:attr="onclick=|deleteItem('tickets', '${ticket.id}')|">Delete</button></td>
+              <tr th:each = "partorder: ${partorders}">
+              	<th th:text = "${partorder.poid}"></th>
+              	<td th:text = "${partorder.partName}"></td>
+              	<td th:text = "${partorder.partPrice}"></td>
+              	<td th:text = "${#numbers.formatInteger(partorder.partQuantity,1,'NONE')}"></td>
+              	<td><button type="button" class="btn btn-danger" th:attr="onclick=|deleteItem('partorders','${partorder.poid}')|">Delete</button></td>
               	<td><button type="button" class="btn btn-warning text-light">Update</button></td>
               </tr>
             </tbody>

@@ -10,9 +10,18 @@ fetch(ticketsUrl)
     }
 )
 
-function deleteItem(){
-	let id = 
-	location.href = 'http://localhost:8080/tickets/' + id + '/remove';
+
+/* Functionality primarily meant to be attached to onclick attribute that redirects to the remove Url path
+   It uses two parameters:
+   
+   name - this first parameter must be passed on each template page to redirect to the right Url.
+   
+   id - this second parameter is dynamically created in thymeleaf and attached to the table data.
+   this id will also be placed in the Url to complete it and finally delete the item.
+*/
+
+function deleteItem(name, id){
+	location.href = 'http://localhost:8080/' + name + '/' + id + '/remove';
 }
 
 
