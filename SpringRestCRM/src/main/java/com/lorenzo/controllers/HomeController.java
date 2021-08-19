@@ -118,7 +118,8 @@ public class HomeController {
 	@GetMapping("/tickets")
 	public String ticketsForm(Model model) {
 		model.addAttribute("ticket", new Ticket());
-		return "ticketform";
+		model.addAttribute("tickets", ticketServ.findAll());
+		return "tickets-view";
 	}
 	
 	@PostMapping("/tickets")
@@ -148,18 +149,19 @@ public class HomeController {
 		return "redirect:/tickets-view";
 	}
 	
-	@GetMapping("/tickets-view")
-	public String viewTickets(Model model) {
-		model.addAttribute("tickets", ticketServ.findAll());
-		return "tickets-view";
-	}
+//	@GetMapping("/tickets")
+//	public String viewTickets(Model model) {
+//		model.addAttribute("tickets", ticketServ.findAll());
+//		return "tickets-view";
+//	}
 	
 	// Products Mappings
 	
 	@GetMapping("/products")
 	public String productsForm(Model model) {
 		model.addAttribute("product", new Product());
-		return "productform";
+		model.addAttribute("products", productServ.findAll());
+		return "products-view";
 	}
 	
 	@PostMapping("/products")
@@ -190,18 +192,19 @@ public class HomeController {
 		return "redirect:/products-view";
 	}
 	
-	@GetMapping("/products-view")
-	public String viewProducts(Model model) {
-		model.addAttribute("products", productServ.findAll());
-		return "products-view";
-	}
+//	@GetMapping("/products")
+//	public String viewProducts(Model model) {
+//		model.addAttribute("products", productServ.findAll());
+//		return "products-view";
+//	}
 	
 	// PartOrder Mappings
 	
 	@GetMapping("/partorders")
 	public String partOrderForm(Model model) {
-		model.addAttribute("product", new PartOrder());
-		return "partorderform";
+		model.addAttribute("partorder", new PartOrder());
+		model.addAttribute("partorders", partOrderServ.findAll());
+		return "partorders-view";
 	}
 	
 	@PostMapping("/partorders")
@@ -232,10 +235,10 @@ public class HomeController {
 		return "redirect:/partorders-view";
 	}
 	
-	@GetMapping("/partorders-view")
-	public String viewPartsOrders(Model model) {
-		model.addAttribute("partorders", partOrderServ.findAll());
-		return "partorders-view";
-	}
+//	@GetMapping("/partorders-view")
+//	public String viewPartsOrders(Model model) {
+//		model.addAttribute("partorders", partOrderServ.findAll());
+//		return "partorders-view";
+//	}
 	
 }
