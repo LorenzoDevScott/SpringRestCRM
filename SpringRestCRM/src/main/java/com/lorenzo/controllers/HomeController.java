@@ -82,7 +82,7 @@ public class HomeController {
 	@PostMapping("/customers")
 	  public String customerSubmit(@ModelAttribute Customer customer) {
 	    customerServ.save(customer);
-	    return "redirect:/customers-view";
+	    return "redirect:/customers";
 	  }
 	
 	@GetMapping("/customers/{id}")
@@ -98,20 +98,20 @@ public class HomeController {
 		dataCustomer.setFirstName(customer.getFirstName());
 		dataCustomer.setLastName(customer.getLastName());
 		customerServ.save(dataCustomer);
-		return "redirect:/customers-view";
+		return "redirect:/customers";
 	}
 	
 	@RequestMapping(value = "/customers/{id}/remove", method = {RequestMethod.GET, RequestMethod.DELETE})
 	public String deleteCustomer(@PathVariable Long id) {
 		customerServ.deleteById(id);
-		return "redirect:/customers-view";
+		return "redirect:/customers";
 	}
 	
-	@GetMapping("/customers-view")
-	public String viewCustomers(Model model) {
-		model.addAttribute("customers", customerServ.findAll());
-		return "customers-view";
-	}
+//	@GetMapping("/customers-view")
+//	public String viewCustomers(Model model) {
+//		model.addAttribute("customers", customerServ.findAll());
+//		return "customers-view";
+//	}
 	
 	// Ticket Mappings
 	
