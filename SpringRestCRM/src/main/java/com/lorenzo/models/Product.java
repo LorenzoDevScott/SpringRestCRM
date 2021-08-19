@@ -42,7 +42,7 @@ public class Product {
 	public void setProductPrice(double productPrice) {
 		this.productPrice = productPrice;
 	}
-	public double getProductQuantity() {
+	public long getProductQuantity() {
 		return productQuantity;
 	}
 	public void setProductQuantity(long productQuantity) {
