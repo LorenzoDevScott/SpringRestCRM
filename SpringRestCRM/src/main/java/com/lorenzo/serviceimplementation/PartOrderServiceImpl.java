@@ -26,6 +26,12 @@ public class PartOrderServiceImpl implements PartOrderService{
 	}
 
 	@Override
+	public void deleteById(Long id) {
+		partOrderRepo.deleteById(id);
+		
+	}
+
+	@Override
 	public PartOrder findByPartName(String partName) {
 		return partOrderRepo.findByPartName(partName);
 	}
