@@ -4,8 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
+@Table(name="products")
 public class Product {
 	
 	@Id
@@ -16,16 +20,17 @@ public class Product {
 	private long productQuantity;
 	
 	public Product() {
-		super();
+		
 	}
 	
 	public Product(String productName, double productPrice, long productQuantity) {
-		super();
+		this();
 		this.productName = productName;
 		this.productPrice = productPrice;
 		this.productQuantity = productQuantity;
 	}
 
+	@JsonProperty("pid")
 	public long getPid() {
 		return pid;
 	}

@@ -4,8 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
+@Table(name="partorders")
 public class PartOrder {
 	
 	@Id
@@ -16,16 +20,17 @@ public class PartOrder {
 	private long partQuantity;
 	
 	public PartOrder() {
-		super();
+		
 	}
 	
 	public PartOrder(String partName, double partPrice, long partQuantity) {
-		super();
+		this();
 		this.partName = partName;
 		this.partPrice = partPrice;
 		this.partQuantity = partQuantity;
 	}
 
+	@JsonProperty("poid")
 	public long getPoid() {
 		return poid;
 	}
