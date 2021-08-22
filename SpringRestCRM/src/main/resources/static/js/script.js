@@ -28,7 +28,7 @@ function deleteItem(name, id){
 $(document).ready(function() {
     $('#mydata').DataTable({
     pageLength : 5,
-    lengthMenu: [5, 10, 20, -1]
+    lengthMenu: [5, 10, 20]
   });
 } );
 
