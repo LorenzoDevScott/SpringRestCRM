@@ -16,10 +16,12 @@ import com.lorenzo.models.Customer;
 import com.lorenzo.models.PartOrder;
 import com.lorenzo.models.Product;
 import com.lorenzo.models.Ticket;
+import com.lorenzo.models.TicketUpdate;
 import com.lorenzo.serviceimplementation.CustomerServiceImpl;
 import com.lorenzo.serviceimplementation.PartOrderServiceImpl;
 import com.lorenzo.serviceimplementation.ProductServiceImpl;
 import com.lorenzo.serviceimplementation.TicketServiceImpl;
+import com.lorenzo.serviceimplementation.TicketUpdateServiceImpl;
 
 @RestController
 @CrossOrigin("http://localhost:8080/**")
@@ -36,6 +38,9 @@ public class RestApiController {
 	
 	@Autowired
 	private PartOrderServiceImpl partOrderServ;
+	
+	@Autowired
+	private TicketUpdateServiceImpl ticketUpdateServ;
 	
 	// Ticket REST Controls
 	
@@ -57,6 +62,22 @@ public class RestApiController {
 	public List<Ticket> getTickets(@PathVariable String repairType) {
 		return ticketServ.findByRepairType(repairType);
 	}
+	
+	// TicketUpdate REST Controls
+	
+	// Get TicketUpdate By ID
+	@GetMapping("data/ticketupdates/{tuid}")
+	public TicketUpdate getTicketUpdate(@PathVariable Long tuid) throws Exception {
+		return ticketUpdateServ.findById(tuid);
+	}
+	
+	// Get List of TicketUpdates
+	@GetMapping("data/ticketupdates/")
+	public List<TicketUpdate> findAllTicketUpdates() {
+		return ticketUpdateServ.findAll();
+	}
+	
+	
 	
 	// Customer REST Controls
 	
