@@ -49,6 +49,9 @@ public class Runner implements CommandLineRunner {
 		
 		TicketUpdate update2 = new TicketUpdate("Opened the phone and found corrosion on multiple componenets", ticket2);
 		ticket2.getUpdates().add(update2);
+		
+		TicketUpdate update3 = new TicketUpdate("Replaced the camera and now testing its functioanlity", ticket);
+		ticket.getUpdates().add(update3);
 //		ticketServ.save(ticket2);
 		customer.getTickets().add(ticket);
 		customer.getTickets().add(ticket2);
