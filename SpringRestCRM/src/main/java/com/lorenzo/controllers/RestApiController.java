@@ -42,6 +42,8 @@ public class RestApiController {
 	@Autowired
 	private TicketUpdateServiceImpl ticketUpdateServ;
 	
+	
+	
 	// Ticket REST Controls
 	
 	// Get Ticket By ID
@@ -62,6 +64,8 @@ public class RestApiController {
 	public List<Ticket> getTickets(@PathVariable String repairType) {
 		return ticketServ.findByRepairType(repairType);
 	}
+	
+	
 	
 	// TicketUpdate REST Controls
 	
@@ -112,6 +116,8 @@ public class RestApiController {
 		return customerServ.findByFirstName(lastName);
 	}
 	
+	
+	
 	// Product REST Controls
 	@GetMapping("data/products")
 	public List<Product> getProducts() {
@@ -127,6 +133,8 @@ public class RestApiController {
 	public Product getProductByProductName(String productName) {
 		return productServ.findByProductName(productName);
 	}
+	
+	
 	
 	// PartOrder REST Controls
 	@GetMapping("data/part-orders/{poid}")
