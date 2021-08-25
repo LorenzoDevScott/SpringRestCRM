@@ -53,12 +53,5 @@ public class PartOrder {
 	public void setPartQuantity(long partQuantity) {
 		this.partQuantity = partQuantity;
 	}
-	
-	
-	
-	
-	
-	
-	
 
 }
