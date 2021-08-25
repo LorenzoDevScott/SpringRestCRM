@@ -1,6 +1,9 @@
 package com.lorenzo.controllers;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,11 +23,13 @@ import com.lorenzo.models.Customer;
 import com.lorenzo.models.PartOrder;
 import com.lorenzo.models.Product;
 import com.lorenzo.models.Ticket;
+import com.lorenzo.models.TicketUpdate;
 import com.lorenzo.repository.CustomerRepo;
 import com.lorenzo.serviceimplementation.CustomerServiceImpl;
 import com.lorenzo.serviceimplementation.PartOrderServiceImpl;
 import com.lorenzo.serviceimplementation.ProductServiceImpl;
 import com.lorenzo.serviceimplementation.TicketServiceImpl;
+import com.lorenzo.serviceimplementation.TicketUpdateServiceImpl;
 
 @Controller
 public class HomeController {
@@ -43,6 +48,9 @@ public class HomeController {
 	
 	@Autowired
 	private PartOrderServiceImpl partOrderServ;
+	
+	@Autowired
+	private TicketUpdateServiceImpl ticketUpdateServ;
 	
 	
 											// Controller Mappings
@@ -85,12 +93,14 @@ public class HomeController {
 	    return "redirect:/customers";
 	  }
 	
+	// Getting the single customer data by id
 	@GetMapping("/customers/{id}")
 	public String getCustomer(@PathVariable Long id, Model model) throws Exception {
 		model.addAttribute("customer", customerServ.findById(id));
 		return "customerupdate";
 	}
 	
+	// Grabbing the customer again to process for updating
 	@PostMapping("/customers/{id}")
 	public String updateCustomer(@PathVariable Long id, @ModelAttribute Customer customer) throws Exception {
 		Customer dataCustomer = customerServ.findById(id);
@@ -131,22 +141,45 @@ public class HomeController {
 	@GetMapping("/tickets/{id}")
 	public String getTicket(@PathVariable Long id, Model model) throws Exception {
 		model.addAttribute("ticket", ticketServ.findById(id));
-		return "ticketupdate";
+		return "ticket-view";
 	}
 	
 	@PostMapping("/tickets/{id}")
 	public String updateTicket(@PathVariable Long id, @ModelAttribute Ticket ticket) throws Exception {
+		
+		// Re-initiate the transaction for processing ticket data
 		Ticket dataTicket = ticketServ.findById(id);
-		dataTicket.setRepairType(ticket.getRepairType());
+		//dataTicket.setRepairType(ticket.getRepairType());
+		
+		// On form send the data is bound to ticket and we are grabbing that data using ticket.get...()
 		dataTicket.setDescription(ticket.getDescription());
+		dataTicket.setDiagnostic(ticket.getDiagnostic());
+		
+		
+		// Grab the List of ticketUpdates from the ticket model
+		List<TicketUpdate> updates = ticket.getUpdates();
+		
+		
+		// Testing to see the size of the update and printing out if the ticketUpdates were updated from the model
+		System.out.println("The size of this list is: " + updates.size());
+		updates.forEach(name -> {
+			System.out.println("Updates: " + name.getTicketUpdate());
+		});
+		
+		// Iterate through all the dataTicket ticketUpdates to set them individually
+		for (int i = 0; i < updates.size(); i++) {
+			dataTicket.getUpdates().get(i).setTicketUpdate(updates.get(i).getTicketUpdate());
+		}
+		
+		// Persisting all results to the database
 		ticketServ.save(dataTicket);
-		return "redirect:/tickets-view";
+		return "redirect:/tickets";
 	}
 	
 	@RequestMapping(value = "/tickets/{id}/remove", method = {RequestMethod.GET, RequestMethod.DELETE})
 	public String deleteTicket(@PathVariable Long id) {
 		ticketServ.deleteById(id);
-		return "redirect:/tickets-view";
+		return "redirect:/tickets";
 	}
 	
 //	@GetMapping("/tickets")
