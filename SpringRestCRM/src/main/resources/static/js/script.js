@@ -1,3 +1,5 @@
+// Goes to the Index Page
+
 let ticketsUrl = 'http://localhost:8080/data/tickets/';
 
 
@@ -10,6 +12,9 @@ fetch(ticketsUrl)
         ticketCount.appendChild(textToAdd);
     }
 );
+
+
+// Can go to all pages
 
 // Grab the URL and parse to String
 function getUrlString(){
@@ -31,8 +36,6 @@ function getRootUrl() {
 	return rootUrl;
 }
 
-
-
 // Create the wrapper to get the data
 const wrapperUrl = {
 	url: getRootUrl,
@@ -53,7 +56,6 @@ function deleteItem(name, id){
 	location.href = 'http://localhost:8080/' + name + '/' + id + '/remove';
 }
 
-
 $(document).ready(function() {
     $('#mydata').DataTable({
     pageLength : 5,
@@ -68,7 +70,7 @@ function formBuilder(dataKey, selector){
 	return formData;
 }
 
-// Create a new form
+// Create the static ticket form
 function ticketForm(){
 	let data = new FormData();
 	data.append('description', $('#description').text());
@@ -86,6 +88,38 @@ function ticketForm(){
 		data.append('updates[' + i + '].ticketUpdate', $('#update' + (ticket.updates[i].tuid)).text());
 		console.log($('#update' + (ticket.updates[i].tuid)).text());
 	}
+	return data;
+}
+
+// Create new ticket update form
+function ticketUpdate(updateSelector) {
+	let data = new FormData();
+	data.append('description', $('#description').text());
+	data.append('diagnostic', $('#diagnostic').text());
+	
+	// Dynamically creates form data for each of the ticketUpdates present.
+	for (var i = 0; i < ticket.updates.length; i ++){
+		
+		/*
+		First param is building the data Key name. It will start with the first element in the ticket.updates array
+		
+		Second param is grabbing the text inside the specified #ticket[id], in this case the id is the tuid
+		of the specified update element
+		*/
+		data.append('updates[' + i + '].ticketUpdate', ticket.updates[i].update);
+	}
+	
+	// Ensures that no empty values will be returned to the dataForm
+	let ticketUpdateBody = $(updateSelector).text();
+	
+	if (ticketUpdateBody === ""){
+		console.log('values: ' + data.get('ticketUpdate'));
+		return data;
+	} else {
+		data.append('ticketUpdate', $(updateSelector).text());
+	}
+
+	console.log('values: ' + data.get('ticketUpdate'));
 	return data;
 }
 
@@ -140,6 +174,10 @@ function editButtonPostStaticForm(selectorId, dataUrlLink, UrlId){
 			// This chunk right here is responsible for sending the data to the database
 			let data = ticketForm();
 			httpPostRequest(data, dataUrlLink, UrlId);
+			
+			setTimeout(function() {
+			location.reload();
+			}, 500);
 		});
 	} 
 	else {
@@ -162,11 +200,29 @@ function addClick(k) {
 	});
 }
 
+$('#createUpdateButton').click(function() {
+	
+	$('#close').click(function() {
+		$('#createUpdateBody').empty();
+	});
+	
+	$('#apply').click(function() {
+		let data = ticketUpdate('#createUpdateBody');
+		httpPostRequest(data, wrapperUrl.url(), wrapperUrl.id());
+		$('#createUpdateBody').empty();
+		$('#staticBackdrop').modal('toggle');
+		
+		setTimeout(function() {
+			location.reload();
+		}, 500);
+	});
+	
+});
+
 // Implementation for adding the click methods. the iteration size is based on the size of the updates based on the ticket JSON object
 for (var i = 0; i < ticket.updates.length; i++){
 	addClick(ticket.updates[i].tuid);
 }
-
 
 // Checking to see if the root URL was saved
 console.log(getRootUrl());
