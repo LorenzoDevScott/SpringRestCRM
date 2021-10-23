@@ -36,24 +36,24 @@ class TicketServiceImplTest {
 		Ticket ticket = new Ticket("Screen Repair", "Dropped phone on pavement", customer);
 		ticketServImpl.save(ticket);
 		
-		long id = ticket.getId();
+		long id = ticket.getTid();
 		Ticket foundTicket = ticketServImpl.findById(id);
-		assertEquals(ticket.getId(), foundTicket.getId());
+		assertEquals(ticket.getTid(), foundTicket.getTid());
 	}
 	
-//	@Test
-//	void testFindByRepairType() {
-//		Customer customer2 = new Customer();
-//		Customer customer3 = new Customer();
-//		Ticket ticket1 = new Ticket("Screen Repair", "Dropped phone on cement", customer2);
-//		Ticket ticket2 = new Ticket("Water Damage", "Dropped phone inside pool", customer3);
-//		
-//		ticketServImpl.save(ticket1);
-//		ticketServImpl.save(ticket2);
-//
-//		List<Ticket> tickets = ticketServImpl.findByRepairType("Screen Repair");
-//		Assertions.assertThat(tickets.size()).isEqualTo(2);
-//	}
+	@Test
+	void testFindByRepairType() {
+		Customer customer2 = new Customer();
+		Customer customer3 = new Customer();
+		Ticket ticket1 = new Ticket("Screen Repair", "Dropped phone on cement", customer2);
+		Ticket ticket2 = new Ticket("Water Damage", "Dropped phone inside pool", customer3);
+		
+		ticketServImpl.save(ticket1);
+		ticketServImpl.save(ticket2);
+
+		List<Ticket> tickets = ticketServImpl.findByRepairType("Screen Repair");
+		Assertions.assertThat(tickets.size()).isEqualTo(2);
+	}
 	
 	
 	
