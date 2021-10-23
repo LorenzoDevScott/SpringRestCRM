@@ -81,7 +81,6 @@ public class Runner implements CommandLineRunner {
 		ticketServ.save(new Ticket("Water Damage", "Went swimming in lake and forgot phone was in pocket", customerServ.findById((long) 3)));
 		ticketServ.save(new Ticket("OS Install", "Customer bought a new computer and needs Windows 10 installed", customerServ.findById((long) 4)));
 		
-		
 	}
 
 }
