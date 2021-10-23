@@ -15,6 +15,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 @Entity
 @Table(name="ticketupdates")
@@ -38,6 +39,12 @@ public class TicketUpdate {
 	private Ticket ticket;
 	
 	public TicketUpdate() {
+	
+	}
+	
+	public TicketUpdate(Ticket ticket) {
+		this();
+		this.ticket = ticket;
 	}
 
 	public TicketUpdate(String update, Ticket ticket) {
