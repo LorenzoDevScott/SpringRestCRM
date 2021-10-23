@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title>CRM</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <div class="container">
+            <a href="/" class="navbar-brand">CRM</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a href="/tickets" class="nav-link">Tickets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/partorders" class="nav-link">Parts Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/products" class="nav-link">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/customers" class="nav-link">Customers</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+   <section class="min-100 d-flex flex-column justify-content-start mt-3 mb-3 container">
+   
+        <h2 class="mb-3">Product Page</h2>
+        
+        <div class="row mb-3">
+            <div class="col">
+                <div class="card">
+                	<form th:object="${product}">
+                		<div th:each = "product: ${product}">
+	                    	<div class="card-header bg-warning bg-gradient">
+	                    		<div class="row">
+	                    			<div class="col">Product ID: <span th:text = ${product.pid}></span></div>
+	                    			<div class="col text-end">Created: <span th:text = "${#temporals.format(product.createDateTime, 'M-dd-yyyy HH:mm:ss')}"></span></div>
+	                    		</div>
+	                    		
+		                      
+		                    </div>
+		                    
+		                    <div class="card-body">
+		                        <h5 id="productName" th:text = ${product.productName} class="card-title"></h5>
+		                        <!-- <textarea th:field = "${ticket.description}" class="form-control card-text border-0 px-0" name="description"></textarea> -->
+		                        <div class="row">
+		                        	<p class="card-text col-auto pe-1">Quantity: </p>
+		                        	<p class="col-auto mx-0 px-0" contentEditable=false th:text = ${product.productQuantity}></p>
+								</div>
+								
+								<div class="row">
+		                        	<p class="card-text col-auto pe-0">Price: $</p>
+		                        	<p class="col-auto mx-0 px-0" contentEditable=false th:text = ${product.productPrice}></p>
+								</div>
+								
+								<div class="row">
+		                        	<p class="card-text col-auto pe-1">Description: </p>
+		                        	<p class="col-auto mx-0 px-0" contentEditable=false th:text = ${product.description}></p>
+								</div>
+								
+		                        <div class="row">
+		                        	<div class="col">
+		                        		<div id="descUpdate" class="text-muted">Updated: <span th:text = "${#temporals.format(product.updateDateTime, 'M-dd-yyyy HH:mm:ss')}"></span></div>
+		                        	</div>
+		                        	<div class="col text-end">
+		                        		<button id="buttonDesc" type="button" class="btn btn-sm btn-primary">Edit</button>
+		                        	</div>
+		                        </div>
+		                    </div>
+                    	</div>
+                	</form>
+	        	</div>
+	    	</div>
+        </div>
+        
+ 	
+        </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+    <script th:inline="javascript">
+    	let product = [[${product}]];
+    </script>
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>
