@@ -49,6 +49,9 @@ public class Runner implements CommandLineRunner {
 		
 		TicketUpdate update2 = new TicketUpdate("Opened the phone and found corrosion on multiple componenets", ticket2);
 		ticket2.getUpdates().add(update2);
+		
+		TicketUpdate update3 = new TicketUpdate("Replaced the camera and now testing its functioanlity", ticket);
+		ticket.getUpdates().add(update3);
 //		ticketServ.save(ticket2);
 		customer.getTickets().add(ticket);
 		customer.getTickets().add(ticket2);
@@ -77,7 +80,6 @@ public class Runner implements CommandLineRunner {
 		ticketServ.save(new Ticket("Water Damage", "Accidentally dropped phone in the toilet", customerServ.findById((long) 1)));
 		ticketServ.save(new Ticket("Water Damage", "Went swimming in lake and forgot phone was in pocket", customerServ.findById((long) 3)));
 		ticketServ.save(new Ticket("OS Install", "Customer bought a new computer and needs Windows 10 installed", customerServ.findById((long) 4)));
-		
 		
 	}
 

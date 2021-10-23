@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -63,6 +65,8 @@ public class RestApiController {
 		return ticketServ.findByRepairType(repairType);
 	}
 	
+	
+	
 	// TicketUpdate REST Controls
 	
 	// Get TicketUpdate By ID
@@ -75,6 +79,11 @@ public class RestApiController {
 	@GetMapping("data/ticketupdates/")
 	public List<TicketUpdate> findAllTicketUpdates() {
 		return ticketUpdateServ.findAll();
+	}
+	
+	@PostMapping(value = "data/createTicketUpdate", consumes = "application/json", produces = "application/json")
+	public TicketUpdate postTicketUpdate(@PathVariable Long tuid, @RequestBody TicketUpdate ticketUpdate) {
+		return ticketUpdateServ.save(ticketUpdate);
 	}
 	
 	
@@ -112,6 +121,8 @@ public class RestApiController {
 		return customerServ.findByFirstName(lastName);
 	}
 	
+	
+	
 	// Product REST Controls
 	@GetMapping("data/products")
 	public List<Product> getProducts() {
@@ -127,6 +138,8 @@ public class RestApiController {
 	public Product getProductByProductName(String productName) {
 		return productServ.findByProductName(productName);
 	}
+	
+	
 	
 	// PartOrder REST Controls
 	@GetMapping("data/part-orders/{poid}")

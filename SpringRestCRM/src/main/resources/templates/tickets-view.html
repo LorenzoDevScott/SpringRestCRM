@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
     <title>CRM</title>
 </head>
 <body>
@@ -48,7 +47,7 @@
         <table id="mydata" class="table table-striped table-light">
             <thead>
               <tr>
-                <th scope="col">#ID</th>
+                <th class="text-center" scope="col">ID</th>
                 <th scope="col">Repair Type</th>
                 <th scope="col">Description</th>
                 <th scope="col">Delete Ticket</th>
@@ -57,10 +56,10 @@
             </thead>
             <tbody>
               <tr th:each = "tic: ${tickets}">
-              	<th th:text = "${tic.id}"></th>
+              	<th class="text-center"><a th:text = "${tic.tid}" th:href="@{|/tickets/${tic.tid}|}"></a></th>
               	<td th:text = "${tic.repairType}"></td>
               	<td th:text = "${tic.description}"></td>
-              	<td><button type="button" class="btn btn-danger" th:attr="onclick=|deleteItem('tickets', '${tic.id}')|">Delete</button></td>
+              	<td><button type="button" class="btn btn-danger" th:attr="onclick=|deleteItem('tickets', '${tic.tid}')|">Delete</button></td>
               	<td><button type="button" class="btn btn-warning text-light">Update</button></td>
               </tr>
             </tbody>
@@ -94,6 +93,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
-    <script src="js/script.js"></script>
+    <script th:src="@{/js/script.js}"></script>
+    <script th:src="@{/js/tickets-view.js}"></script>
 </body>
 </html>

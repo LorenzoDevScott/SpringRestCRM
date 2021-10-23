@@ -1,10 +1,15 @@
 package com.lorenzo.models;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -18,6 +23,13 @@ public class PartOrder {
 	private String partName;
 	private double partPrice;
 	private long partQuantity;
+	private String description;
+	
+	@CreationTimestamp
+	private LocalDateTime createDateTime;
+	
+	@UpdateTimestamp
+	private LocalDateTime updateDateTime;
 	
 	public PartOrder() {
 		
@@ -53,12 +65,29 @@ public class PartOrder {
 	public void setPartQuantity(long partQuantity) {
 		this.partQuantity = partQuantity;
 	}
-	
-	
-	
-	
-	
-	
-	
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public LocalDateTime getCreateDateTime() {
+		return createDateTime;
+	}
+
+	public void setCreateDateTime(LocalDateTime createDateTime) {
+		this.createDateTime = createDateTime;
+	}
+
+	public LocalDateTime getUpdateDateTime() {
+		return updateDateTime;
+	}
+
+	public void setUpdateDateTime(LocalDateTime updateDateTime) {
+		this.updateDateTime = updateDateTime;
+	}
 
 }
