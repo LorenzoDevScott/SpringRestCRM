@@ -40,7 +40,7 @@ public class Customer {
 	private List<Ticket> tickets;
 	
 	public Customer() {
-	
+		this.tickets = new ArrayList<>();
 	}
 	
 	public Customer(String firstName, String lastName, String email) {
@@ -48,11 +48,10 @@ public class Customer {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.tickets = new ArrayList<>();
 	}
 	
 	@JsonProperty("cid")
-	public Long getId() {
+	public long getCid() {
 		return cid;
 	}
 	
@@ -103,7 +102,5 @@ public class Customer {
 	public void setUpdateDateTime(LocalDateTime updateDateTime) {
 		this.updateDateTime = updateDateTime;
 	}
-	
-	
 	
 }
