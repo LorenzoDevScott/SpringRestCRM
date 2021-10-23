@@ -59,7 +59,7 @@ public class Ticket {
 	}
 	
 	@JsonProperty("tid")
-	public long getId() {
+	public long getTid() {
 		return tid;
 	}
 	
