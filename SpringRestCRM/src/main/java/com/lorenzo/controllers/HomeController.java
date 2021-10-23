@@ -97,7 +97,7 @@ public class HomeController {
 	@GetMapping("/customers/{id}")
 	public String getCustomer(@PathVariable Long id, Model model) throws Exception {
 		model.addAttribute("customer", customerServ.findById(id));
-		return "customerupdate";
+		return "customer-view";
 	}
 	
 	// Grabbing the customer again to process for updating
@@ -117,12 +117,6 @@ public class HomeController {
 		return "redirect:/customers";
 	}
 	
-//	@GetMapping("/customers-view")
-//	public String viewCustomers(Model model) {
-//		model.addAttribute("customers", customerServ.findAll());
-//		return "customers-view";
-//	}
-	
 	// Ticket Mappings
 	
 	@GetMapping("/tickets")
@@ -141,15 +135,17 @@ public class HomeController {
 	@GetMapping("/tickets/{id}")
 	public String getTicket(@PathVariable Long id, Model model) throws Exception {
 		model.addAttribute("ticket", ticketServ.findById(id));
+		model.addAttribute("createTicketUpdate", new TicketUpdate(ticketServ.findById(id)));
 		return "ticket-view";
 	}
 	
 	@PostMapping("/tickets/{id}")
-	public String updateTicket(@PathVariable Long id, @ModelAttribute Ticket ticket) throws Exception {
+	public String updateTicket(@PathVariable Long id, @ModelAttribute Ticket ticket, @ModelAttribute("myUpdate") TicketUpdate ticketUpdate) throws Exception {
+		
+		// This is the first part of the Post Mapping to update all TicketUpdates currently assigned to the ticket
 		
 		// Re-initiate the transaction for processing ticket data
 		Ticket dataTicket = ticketServ.findById(id);
-		//dataTicket.setRepairType(ticket.getRepairType());
 		
 		// On form send the data is bound to ticket and we are grabbing that data using ticket.get...()
 		dataTicket.setDescription(ticket.getDescription());
@@ -169,6 +165,21 @@ public class HomeController {
 		// Iterate through all the dataTicket ticketUpdates to set them individually
 		for (int i = 0; i < updates.size(); i++) {
 			dataTicket.getUpdates().get(i).setTicketUpdate(updates.get(i).getTicketUpdate());
+		}
+		
+		/* This is the second part of the Post Mapping that determines whether or not a new TicketUpdate will be added to the
+		 * current Ticket */
+		
+		// Assigning the ticketUpdate to the current working Ticket (dataTicket)
+		ticketUpdate.setTicket(dataTicket);
+		
+		
+		// When a ticketUpdate returns null don't add it to the list of updates
+		if(ticketUpdate.getTicketUpdate() == null) {
+			ticketServ.save(dataTicket);
+		} else {
+		// When it returns with content, add it to the list of updates
+			dataTicket.getUpdates().add(ticketUpdate);
 		}
 		
 		// Persisting all results to the database
@@ -206,7 +217,7 @@ public class HomeController {
 	@GetMapping("/products/{id}")
 	public String getProduct(@PathVariable Long id, Model model) throws Exception {
 		model.addAttribute("product", productServ.findById(id));
-		return "productupdate";
+		return "product-view";
 	}
 	
 	@PostMapping("/products/{id}")
@@ -225,12 +236,6 @@ public class HomeController {
 		return "redirect:/products-view";
 	}
 	
-//	@GetMapping("/products")
-//	public String viewProducts(Model model) {
-//		model.addAttribute("products", productServ.findAll());
-//		return "products-view";
-//	}
-	
 	// PartOrder Mappings
 	
 	@GetMapping("/partorders")
@@ -248,8 +253,8 @@ public class HomeController {
 	
 	@GetMapping("/partorders/{id}")
 	public String getPartOrder(@PathVariable Long id, Model model) throws Exception {
-		model.addAttribute("partorder", productServ.findById(id));
-		return "partorderupdate";
+		model.addAttribute("partorder", partOrderServ.findById(id));
+		return "partorder-view";
 	}
 	
 	@PostMapping("/partorders/{id}")
@@ -267,11 +272,5 @@ public class HomeController {
 		partOrderServ.deleteById(id);
 		return "redirect:/partorders-view";
 	}
-	
-//	@GetMapping("/partorders-view")
-//	public String viewPartsOrders(Model model) {
-//		model.addAttribute("partorders", partOrderServ.findAll());
-//		return "partorders-view";
-//	}
 	
 }
